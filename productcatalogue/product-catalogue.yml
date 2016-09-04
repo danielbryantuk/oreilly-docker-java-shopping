@@ -1,0 +1,10 @@
+version: 1.0-SNAPSHOT
+ 
+
+server:
+  applicationConnectors:
+  - type: http
+    port: 8020
+  adminConnectors:
+  - type: http
+    port: 8025

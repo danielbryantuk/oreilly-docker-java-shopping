@@ -1,0 +1,7 @@
+version: '2'
+services:
+  shopfront:
+    build: shopfront
+    image: danielbryantuk/ssshopfront
+    ports:
+     - "8070:8070"

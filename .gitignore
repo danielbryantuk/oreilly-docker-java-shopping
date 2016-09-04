@@ -1,0 +1,25 @@
+### Maven template
+target/
+release.properties
+buildNumber.properties
+
+### Java template
+*.class
+.idea
+**.iml
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Vagrant 
+.vagrant/
+# Mac
+.DS_Store
+
+#retry
+*.retry
+
+#logs
+*.log
