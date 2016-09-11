@@ -1,3 +1,5 @@
+#!/bin/bash
+
 cd shopfront
 mvn clean install
 cd ..
