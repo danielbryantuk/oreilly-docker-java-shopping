@@ -11,7 +11,7 @@ import org.openqa.selenium.WebElement;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-﻿
+
 
 @RunWith(SerenityRunner.class)
 public class GuiIntegrationTest {
