@@ -1,10 +1,18 @@
 package uk.co.taidev.springshopping.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Stock {
 
+    @Id
     private String productId;
     private String sku;
     private int amountAvailable;
+
+    protected Stock() {
+    }
 
     public Stock(String productId, String sku, int amountAvailable) {
         this.productId = productId;

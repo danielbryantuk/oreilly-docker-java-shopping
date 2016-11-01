@@ -1,10 +1,13 @@
 package uk.co.taidev.springshopping.resttests;
 
 import io.restassured.http.ContentType;
+import org.junit.ClassRule;
 import org.junit.Test;
+import org.testcontainers.containers.DockerComposeContainer;
+
+import java.io.File;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
 
 public class ShopfrontIntegrationTest {
@@ -12,6 +15,11 @@ public class ShopfrontIntegrationTest {
     private static final ContentType CONTENT_TYPE = ContentType.JSON;
 
     private static final String SUT_BASE_URI = "http://localhost:8010/";
+
+    @ClassRule
+    public static DockerComposeContainer environment =
+            new DockerComposeContainer(new File("docker-compose.yml"))
+                    .withExposedService("shopfront", 8010);
 
     @Test
     public void correctNumberOfProductsReturned() {
