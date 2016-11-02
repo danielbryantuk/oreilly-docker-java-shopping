@@ -20,7 +20,5 @@ public class ShopfrontApplicationTests {
 
     @Test
     public void contextLoads() {
-        String data = testRestTemplate.getForObject("/health", String.class);
     }
-
 }
