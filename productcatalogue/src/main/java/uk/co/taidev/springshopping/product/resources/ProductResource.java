@@ -2,8 +2,8 @@ package uk.co.taidev.springshopping.product.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
+import uk.co.taidev.springshopping.product.daos.ProductDAO;
 import uk.co.taidev.springshopping.product.model.Product;
-import uk.co.taidev.springshopping.product.services.ProductService;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,26 +17,34 @@ import java.util.Optional;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductResource {
 
-    private ProductService productService;
+    private ProductDAO productDAO;
 
     @Inject
-    public ProductResource(ProductService productService) {
-        this.productService = productService;
+    public ProductResource(ProductDAO productDAO) {
+        this.productDAO = productDAO;
     }
 
     @GET
     @Timed
     public Response getAllProducts() {
         return Response.status(200)
-                .entity(productService.getAllProducts())
+                .entity(productDAO.findAll())
                 .build();
     }
 
     @GET
     @Timed
     @Path("{id}")
-    public Response getProduct(@PathParam("id") String id) {
-        Optional<Product> result = productService.getProduct(id);
+    public Response getProduct(@PathParam("id") String productId) {
+        Long id;
+        try {
+            id = Long.parseLong(productId);
+        } catch (NumberFormatException nfe) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .build();
+        }
+
+        Optional<Product> result = productDAO.findById(id);
 
         if (result.isPresent()) {
             return Response.status(Response.Status.OK)

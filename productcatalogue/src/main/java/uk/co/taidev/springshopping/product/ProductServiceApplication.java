@@ -3,10 +3,13 @@ package uk.co.taidev.springshopping.product;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import io.dropwizard.Application;
+import io.dropwizard.db.DataSourceFactory;
+import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import uk.co.taidev.springshopping.product.configuration.ProductServiceConfiguration;
 import uk.co.taidev.springshopping.product.healthchecks.BasicHealthCheck;
+import uk.co.taidev.springshopping.product.model.Product;
 import uk.co.taidev.springshopping.product.resources.ProductResource;
 
 public class ProductServiceApplication extends Application<ProductServiceConfiguration> {
@@ -18,6 +21,20 @@ public class ProductServiceApplication extends Application<ProductServiceConfigu
     public String getName() {
         return "product-list-service";
     }
+
+    private final HibernateBundle<ProductServiceConfiguration> hibernateBundle
+            = new HibernateBundle<ProductServiceConfiguration>(
+            Product.class
+    ) {
+
+        @Override
+        public DataSourceFactory getDataSourceFactory(
+                ProductServiceConfiguration configuration
+        ) {
+            return configuration.getDataSourceFactory();
+        }
+
+    };
 
     @Override
     public void initialize(Bootstrap<ProductServiceConfiguration> bootstrap) {
