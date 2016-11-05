@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping.resttests.entities;
+package uk.co.danielbryant.djshopping.functionale2etests.entities;
 
 import java.math.BigDecimal;
 

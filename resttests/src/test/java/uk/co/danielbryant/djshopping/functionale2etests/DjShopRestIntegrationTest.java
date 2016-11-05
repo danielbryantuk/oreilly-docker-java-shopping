@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping.resttests;
+package uk.co.danielbryant.djshopping.functionale2etests;
 
 import io.restassured.http.ContentType;
 import org.junit.Test;
@@ -6,12 +6,10 @@ import org.junit.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.core.Is.is;
 
-public class ShopfrontIntegrationTest {
+public class DjShopRestIntegrationTest {
 
     private static final ContentType CONTENT_TYPE = ContentType.JSON;
-
     private static final String SUT_BASE_URI = "http://localhost:8010/";
-
 
     @Test
     public void correctNumberOfProductsReturned() {
@@ -24,8 +22,7 @@ public class ShopfrontIntegrationTest {
 
     @Test
     public void productOneHasCorrectProductInfo() {
-        given()
-                .contentType(CONTENT_TYPE)
+        given().contentType(CONTENT_TYPE)
                 .when()
                 .get(SUT_BASE_URI + "products")
                 .then()
