@@ -13,9 +13,12 @@ Vagrant.configure("2") do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/xenial64"
-  config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/xenial64/versions/20161029.0.0"
+  config.vm.box_url = "https://atlas.hashicorp.com/ubuntu/boxes/xenial64/versions/20161104.0.0"
 
   config.vm.network "forwarded_port", guest: 8080, host: 8080
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+  end
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
@@ -26,6 +29,12 @@ Vagrant.configure("2") do |config|
     # Install OpenJDK Java JDK and Maven
     apt-get install -y openjdk-8-jdk
     apt-get install -y maven
+
+    # Install sbt
+    echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+    apt-get update
+    apt-get install sbt
 
     # Install Docker (made slightly more complex by the need to use specific Docker package repos)
     apt-get install -y apt-transport-https ca-certificates
