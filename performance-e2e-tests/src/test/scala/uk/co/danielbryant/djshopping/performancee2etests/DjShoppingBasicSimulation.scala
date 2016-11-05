@@ -32,4 +32,6 @@ class DjShoppingBasicSimulation extends Simulation {
   setUp(primaryScenario.inject(
     constantUsersPerSec(30) during (30 seconds)
   ).protocols(httpProtocol))
+    .assertions(global.responseTime.max.lessThan(50))
+    .assertions(global.failedRequests.percent.is(0))
 }
