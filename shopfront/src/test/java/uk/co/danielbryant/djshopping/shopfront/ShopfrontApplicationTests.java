@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping;
+package uk.co.danielbryant.djshopping.shopfront;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping.repo;
+package uk.co.danielbryant.djshopping.shopfront.repo;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
@@ -11,7 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import uk.co.taidev.springshopping.services.dto.StockDTO;
+import uk.co.danielbryant.djshopping.shopfront.services.dto.StockDTO;
 
 import java.util.Collections;
 import java.util.List;

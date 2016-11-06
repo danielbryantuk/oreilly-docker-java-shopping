@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping.repo;
+package uk.co.danielbryant.djshopping.shopfront.repo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,7 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import uk.co.taidev.springshopping.services.dto.ProductDTO;
+import uk.co.danielbryant.djshopping.shopfront.services.dto.ProductDTO;
 
 import java.util.List;
 import java.util.Map;

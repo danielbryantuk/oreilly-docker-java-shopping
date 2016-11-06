@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping.services.dto;
+package uk.co.danielbryant.djshopping.shopfront.services.dto;
 
 import java.math.BigDecimal;
 

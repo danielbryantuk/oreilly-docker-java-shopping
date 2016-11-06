@@ -1,14 +1,10 @@
-package uk.co.taidev.springshopping.controllers;
+package uk.co.danielbryant.djshopping.shopfront.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.client.RestTemplate;
-import uk.co.taidev.springshopping.model.Product;
-import uk.co.taidev.springshopping.services.ProductService;
-
-import java.util.List;
+import uk.co.danielbryant.djshopping.shopfront.services.ProductService;
 
 @Controller
 public class HomeController {
