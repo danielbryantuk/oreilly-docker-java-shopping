@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping;
+package uk.co.danielbryant.djshopping.stockmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

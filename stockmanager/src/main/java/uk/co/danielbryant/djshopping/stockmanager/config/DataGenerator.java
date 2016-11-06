@@ -1,12 +1,12 @@
-package uk.co.taidev.springshopping.config;
+package uk.co.danielbryant.djshopping.stockmanager.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import uk.co.taidev.springshopping.model.Stock;
-import uk.co.taidev.springshopping.repositories.StockRepository;
+import uk.co.danielbryant.djshopping.stockmanager.model.Stock;
+import uk.co.danielbryant.djshopping.stockmanager.repositories.StockRepository;
 
 import javax.annotation.PostConstruct;
 

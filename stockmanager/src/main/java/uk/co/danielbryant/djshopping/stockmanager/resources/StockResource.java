@@ -1,13 +1,13 @@
-package uk.co.taidev.springshopping.resources;
+package uk.co.danielbryant.djshopping.stockmanager.resources;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import uk.co.taidev.springshopping.exceptions.StockNotFoundException;
-import uk.co.taidev.springshopping.model.Stock;
-import uk.co.taidev.springshopping.services.StockService;
+import uk.co.danielbryant.djshopping.stockmanager.exceptions.StockNotFoundException;
+import uk.co.danielbryant.djshopping.stockmanager.model.Stock;
+import uk.co.danielbryant.djshopping.stockmanager.services.StockService;
 
 import java.util.List;
 

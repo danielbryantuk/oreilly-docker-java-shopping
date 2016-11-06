@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping.model;
+package uk.co.danielbryant.djshopping.stockmanager.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

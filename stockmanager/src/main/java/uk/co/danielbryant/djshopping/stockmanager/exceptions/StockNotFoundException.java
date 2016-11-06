@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping.exceptions;
+package uk.co.danielbryant.djshopping.stockmanager.exceptions;
 
 public class StockNotFoundException extends Exception {
 

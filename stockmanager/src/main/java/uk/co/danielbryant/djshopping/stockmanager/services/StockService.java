@@ -1,10 +1,10 @@
-package uk.co.taidev.springshopping.services;
+package uk.co.danielbryant.djshopping.stockmanager.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uk.co.taidev.springshopping.exceptions.StockNotFoundException;
-import uk.co.taidev.springshopping.model.Stock;
-import uk.co.taidev.springshopping.repositories.StockRepository;
+import uk.co.danielbryant.djshopping.stockmanager.exceptions.StockNotFoundException;
+import uk.co.danielbryant.djshopping.stockmanager.model.Stock;
+import uk.co.danielbryant.djshopping.stockmanager.repositories.StockRepository;
 
 import java.util.List;
 import java.util.Optional;
