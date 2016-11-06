@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
 
 @ContextConfiguration
 @RunWith(SpringRunner.class)
@@ -42,5 +43,10 @@ public class RestStepDefs {
     @Then("^a list of (.*) stocks will be returned$")
     public void assertListOfStocksLength(int length) {
         assertThat(stocks, hasSize(length));
+    }
+
+    @Then("^the stock at index (.*) will have the sku (.*)$")
+    public void assertStockHasSku(int stockIndex, String sku) {
+        assertThat(stocks.get(stockIndex).getSku(), is(sku));
     }
 }
