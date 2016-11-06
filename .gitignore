@@ -1,5 +1,6 @@
 ### Maven template
 target/
+build/
 release.properties
 buildNumber.properties
 
