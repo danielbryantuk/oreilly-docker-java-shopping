@@ -33,14 +33,14 @@ formatter.match({
   "location": "RestStepDefs.init()"
 });
 formatter.result({
-  "duration": 84321994,
+  "duration": 80134498,
   "status": "passed"
 });
 formatter.match({
   "location": "RestStepDefs.getAllStocks()"
 });
 formatter.result({
-  "duration": 402617962,
+  "duration": 372026089,
   "status": "passed"
 });
 formatter.match({
@@ -53,7 +53,7 @@ formatter.match({
   "location": "RestStepDefs.assertListOfStocksLength(int)"
 });
 formatter.result({
-  "duration": 6269809,
+  "duration": 7105401,
   "status": "passed"
 });
 });
