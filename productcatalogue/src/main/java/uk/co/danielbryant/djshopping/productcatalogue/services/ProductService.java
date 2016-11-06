@@ -1,6 +1,6 @@
-package uk.co.taidev.springshopping.product.services;
+package uk.co.danielbryant.djshopping.productcatalogue.services;
 
-import uk.co.taidev.springshopping.product.model.Product;
+import uk.co.danielbryant.djshopping.productcatalogue.model.Product;
 
 import java.math.BigDecimal;
 import java.util.*;

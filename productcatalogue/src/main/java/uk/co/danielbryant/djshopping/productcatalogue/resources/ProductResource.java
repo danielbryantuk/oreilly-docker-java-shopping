@@ -1,9 +1,9 @@
-package uk.co.taidev.springshopping.product.resources;
+package uk.co.danielbryant.djshopping.productcatalogue.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.google.inject.Inject;
-import uk.co.taidev.springshopping.product.model.Product;
-import uk.co.taidev.springshopping.product.services.ProductService;
+import uk.co.danielbryant.djshopping.productcatalogue.services.ProductService;
+import uk.co.danielbryant.djshopping.productcatalogue.model.Product;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

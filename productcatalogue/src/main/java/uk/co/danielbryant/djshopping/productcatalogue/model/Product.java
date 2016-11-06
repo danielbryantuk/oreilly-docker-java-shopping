@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping.product.model;
+package uk.co.danielbryant.djshopping.productcatalogue.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

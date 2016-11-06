@@ -1,4 +1,4 @@
-package uk.co.taidev.springshopping.product.configuration;
+package uk.co.danielbryant.djshopping.productcatalogue.configuration;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
