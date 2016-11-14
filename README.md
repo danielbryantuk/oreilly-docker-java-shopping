@@ -22,7 +22,12 @@ This README is intended to provide high-level guidance of the project, and detai
 * build_all.sh
   * Convenience shell script for triggering Maven builds of all of the application microservices. This script does not build the associated Docker images, but the minibook contains instructions for doing so, alongside the suggestion that the resulting Docker images are pushed to your own DockerHub account
 * docker-compose.yml
- * [Docker Compose](https://docs.docker.com/compose/) file that starts all of the DJShopping application microservices. Note that if you build your own version of the microservices and push the Docker containers to DockerHub, you will have to change the image names details within this file
+ * [Docker Compose](https://docs.docker.com/compose/) file that starts all of the DJShopping application microservice containers. Note that if you push your own version of the Docker images to your DockerHub account you will have to change the image names details within this file to run these (i.e. remove the 'danielbryantuk' account name)
+ * Run the file via the command `docker-compose up`
+* docker-compose-build.yml
+  * [Docker Compose](https://docs.docker.com/compose/) file that contains the build configuration of the DJShopping application microservices.
+  * Build the Docker images via the command `docker-compose -f docker-compose-build.yml build`
+  * Build and run the Docker images via the command `docker-compose -f docker-compose-build.yml up --build`
 
 ## Example Jenkins Pipelines
 
