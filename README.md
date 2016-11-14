@@ -43,7 +43,7 @@ node {
         docker.image('danielbryantuk/djshopfront').withRun('-p 8010:8010') {
             timeout(time: 30, unit: 'SECONDS') {
                 waitUntil {
-                    def r = sh script: 'curl http://localhost:8010/health | grep "UP"', returnStatus: true
+                    def r = sh script: 'curl -s http://localhost:8010/health | grep "UP"', returnStatus: true
                     return (r == 0);
                 }
             }
@@ -66,12 +66,44 @@ node {
             try {
                 sh 'docker-compose up -d'
                 waitUntil { // application is up
-                    def r = sh script: 'curl http://localhost:8010/health | grep "UP"', returnStatus: true
+                    def r = sh script: 'curl -s http://localhost:8010/health | grep "UP"', returnStatus: true
                     return (r == 0);
                 }
 
                 // conduct main test here
                 sh 'curl http://localhost:8010 | grep "Docker Java"'
+
+            } finally {
+                sh 'docker-compose stop'
+            }
+        }
+    }
+
+    stage ('deploy') {
+        // deploy the containers/application here
+    }
+}
+```
+
+### End-to-end Functional Tests
+```
+node {
+    stage ('build') {
+        git url: 'https://github.com/danielbryantuk/oreilly-docker-java-shopping.git'
+        // conduct other build tasks
+    }
+
+    stage ('end-to-end tests') {
+        timeout(time: 60, unit: 'SECONDS') {
+            try {
+                sh 'docker-compose up -d'
+                waitUntil { // application is up
+                    def r = sh script: 'curl -s http://localhost:8010/health | grep "UP"', returnStatus: true
+                    return (r == 0);
+                }
+
+                // conduct main test here
+                sh 'cd functional-e2e-tests && mvn clean verify'
 
             } finally {
                 sh 'docker-compose stop'
