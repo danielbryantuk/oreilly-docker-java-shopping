@@ -1,0 +1,17 @@
+version: '2'
+services:
+  shopfront:
+    build: shopfront
+    ports:
+     - "8010:8010"
+    links:
+      - productcatalogue
+      - stockmanager
+  productcatalogue:
+    build: productcatalogue
+    ports:
+     - "8020:8020"
+  stockmanager:
+    build: stockmanager
+    ports:
+     - "8030:8030"
