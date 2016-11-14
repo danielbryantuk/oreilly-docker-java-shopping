@@ -21,6 +21,8 @@ This README is intended to provide high-level guidance of the project, and detai
   * The 'stock manager' microservice of the DJShopping example application, which provides stock information, such as SKU and quantity
 * build_all.sh
   * Convenience shell script for triggering Maven builds of all of the application microservices. This script does not build the associated Docker images, but the minibook contains instructions for doing so, alongside the suggestion that the resulting Docker images are pushed to your own DockerHub account
+* build_all_and_publish_dockerhub.yml
+  * Convenience build and publish shell script for triggering Maven builds of all of the application microservices, building an associated Docker image, and (if successful) a push of the image to DockerHub. If you wish to use this script you will have to create a DockerHub account and substitute the existing account details ('danielbryantuk') with your own.
 * docker-compose.yml
  * [Docker Compose](https://docs.docker.com/compose/) file that starts all of the DJShopping application microservice containers. Note that if you push your own version of the Docker images to your DockerHub account you will have to change the image names details within this file to run these (i.e. remove the 'danielbryantuk' account name)
  * Run the file via the command `docker-compose up`
