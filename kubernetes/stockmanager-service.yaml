@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: stockmanager
-        image: danielbryantuk/djstockmanager:latest
+        image: danielbryantuk/djstockmanager:1.0
         ports:
         - containerPort: 8030
         livenessProbe:

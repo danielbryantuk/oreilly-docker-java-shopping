@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - name: nginxhttps
-        image: danielbryantuk/djshopfront:latest
+        image: danielbryantuk/djshopfront:1.0
         ports:
         - containerPort: 8010
         livenessProbe:
