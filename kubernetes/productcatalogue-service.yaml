@@ -6,7 +6,7 @@ metadata:
   labels:
     app: productcatalogue
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: productcatalogue
   ports:

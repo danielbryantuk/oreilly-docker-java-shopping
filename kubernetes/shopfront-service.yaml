@@ -6,7 +6,7 @@ metadata:
   labels:
     app: shopfront
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: shopfront
   ports:
@@ -27,7 +27,7 @@ spec:
         app: shopfront
     spec:
       containers:
-      - name: nginxhttps
+      - name: djshopfront
         image: danielbryantuk/djshopfront:1.0
         ports:
         - containerPort: 8010
