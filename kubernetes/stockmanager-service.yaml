@@ -6,7 +6,7 @@ metadata:
   labels:
     app: stockmanager
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: stockmanager
   ports:
