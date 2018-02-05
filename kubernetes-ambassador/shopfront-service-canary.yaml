@@ -1,0 +1,39 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: shopfront-canary
+  labels:
+    app: shopfront-canary
+spec:
+  type: ClusterIP
+  selector:
+    app: shopfront-canary
+  ports:
+  - protocol: TCP
+    port: 8010
+    name: http
+
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: shopfront-canary
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: shopfront-canary
+    spec:
+      containers:
+      - name: djshopfront-canary
+        image: danielbryantuk/djshopfront:1.1
+        ports:
+        - containerPort: 8010
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8010
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
