@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ratelimiter
+  annotations:
+    getambassador.io/config: |
+      ---
+      apiVersion: ambassador/v0
+      kind: RateLimitService
+      name: ratelimiter_svc
+      service: "ratelimiter:50051"
+  labels:
+    app: ratelimiter
+spec:
+  type: ClusterIP
+  selector:
+    app: ratelimiter
+  ports:
+  - protocol: TCP
+    port: 50051
+    name: http
+
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: ratelimiter
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ratelimiter
+    spec:
+      containers:
+      - name: ratelimiter
+        image: danielbryantuk/ratelimiter:0.3
+        ports:
+        - containerPort: 50051
