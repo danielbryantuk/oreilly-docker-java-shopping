@@ -6,66 +6,103 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-  # The most common configuration options are documented and commented below.
-  # For a complete reference, please see the online documentation at
-  # https://docs.vagrantup.com.
 
-  # Every Vagrant development environment requires a box. You can search for
-  # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/xenial64"
-  config.vm.box_version = "20170922.0.0"
+  config.vm.define "jenkins" do |jenkins|
+    jenkins.vm.box = "ubuntu/xenial64"
+    jenkins.vm.box_version = "20180518.0.0"
 
-  config.vm.network "forwarded_port", guest: 8080, host: 8080
-  config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
+    jenkins.vm.network :private_network, ip: "10.0.0.10"
+    jenkins.vm.hostname = "jenkins"
+
+    jenkins.vm.network "forwarded_port", guest: 8080, host: 8080
+    jenkins.vm.provider "virtualbox" do |v|
+      v.name = "jenkins"
+      v.memory = 2048
+    end
+
+    jenkins.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+
+      # Install OpenJDK Java JDK and Maven
+      apt-get install -y openjdk-8-jdk
+      apt-get install -y maven
+
+      # Install sbt
+      echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
+      apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+      apt-get update
+      apt-get install sbt
+
+      # Install Docker (made slightly more complex by the need to use specific Docker package repos)
+      apt-get install -y apt-transport-https ca-certificates
+      apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+      echo deb https://apt.dockerproject.org/repo ubuntu-xenial main >> /etc/apt/sources.list.d/docker.list
+      apt-get update
+      apt-get purge lxc-docker
+      apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
+      apt-get install -y docker-engine
+
+      # Install Jenkins
+      wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | apt-key add -
+      echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list
+      apt-get update
+      apt-get install -y jenkins
+      # Echo the Jenkins security key that is required upon initialisation
+      printf "\n\nJENKINS KEY\n*********************************"
+      # Add the Jenkins user to the Docker group
+      usermod -aG docker jenkins
+      # Wait until the initialAdminPassword file is generated via Jenkins startup
+      while [ ! -f /var/lib/jenkins/secrets/initialAdminPassword ]
+      do
+          sleep 2
+      done
+      cat /var/lib/jenkins/secrets/initialAdminPassword
+      printf "*********************************"
+      # restart the Jenkins service so that the usermod command above takes effect
+      service jenkins restart
+
+      # Install Docker Compose
+      curl -s -L https://github.com/docker/compose/releases/download/1.10.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+      chmod +x /usr/local/bin/docker-compose
+    SHELL
   end
 
-  # Enable provisioning with a shell script. Additional provisioners such as
-  # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
-  # documentation for more information about their specific syntax and use.
-  config.vm.provision "shell", inline: <<-SHELL
-    apt-get update
+  config.vm.define "sonarqube" do |sonarqube|
+    sonarqube.vm.box = "ubuntu/xenial64"
+    sonarqube.vm.box_version = "20180518.0.0"
 
-    # Install OpenJDK Java JDK and Maven
-    apt-get install -y openjdk-8-jdk
-    apt-get install -y maven
+    sonarqube.vm.network :private_network, ip: "10.0.0.20"
+    sonarqube.vm.hostname = "sonarqube"
 
-    # Install sbt
-    echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
-    apt-get update
-    apt-get install sbt
+    sonarqube.vm.network "forwarded_port", guest: 9000, host: 9000
+    sonarqube.vm.provider "virtualbox" do |v|
+      v.name = "sonarqube"
+      v.memory = 2048
+    end
 
-    # Install Docker (made slightly more complex by the need to use specific Docker package repos)
-    apt-get install -y apt-transport-https ca-certificates
-    apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-    echo deb https://apt.dockerproject.org/repo ubuntu-xenial main >> /etc/apt/sources.list.d/docker.list
-    apt-get update
-    apt-get purge lxc-docker
-    apt-get install -y linux-image-extra-$(uname -r) linux-image-extra-virtual
-    apt-get install -y docker-engine
+    sonarqube.vm.provision "shell", inline: <<-SHELL2
+      apt-get update
 
-    # Install Jenkins
-    wget -q -O - https://pkg.jenkins.io/debian/jenkins-ci.org.key | apt-key add -
-    echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list
-    apt-get update
-    apt-get install -y jenkins
-    # Echo the Jenkins security key that is required upon initialisation
-    printf "\n\nJENKINS KEY\n*********************************"
-    # Add the Jenkins user to the Docker group
-    usermod -aG docker jenkins
-    # Wait until the initialAdminPassword file is generated via Jenkins startup
-    while [ ! -f /var/lib/jenkins/secrets/initialAdminPassword ]
-    do
-        sleep 2
-    done
-    cat /var/lib/jenkins/secrets/initialAdminPassword
-    printf "*********************************"
-    # restart the Jenkins service so that the usermod command above takes effect
-    service jenkins restart
+      # Install OpenJDK Java JDK and Maven
+      apt-get install -y openjdk-8-jdk
+      apt-get install -y maven
 
-    # Install Docker Compose
-    curl -s -L https://github.com/docker/compose/releases/download/1.10.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
-  SHELL
+      # Install SonarQube
+      echo Downloading SonarQube...
+      wget --no-verbose https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-6.7.zip
+      echo "c2e568ea1c203892537da3318fdaab3f  sonarqube-6.7.3.zip" > sonarqube-6.7.3.zip.md5
+      md5sum -c sonarqube-6.7.3.zip.md5
+      sudo apt-get -y install unzip
+      unzip -q sonarqube-6.7.zip
+      mv sonarqube-6.7 sonarqube-6
+      chown vagrant:vagrant -R sonarqube-6
+      echo Starting SonarQube...
+      su vagrant
+      cp sonarqube-6/conf/wrapper.conf sonarqube-6/conf/wrapper.conf.original
+      sed -i 's~wrapper.java.command=java~wrapper.java.command=/usr/bin/java~' sonarqube-6/conf/wrapper.conf
+      sonarqube-6/bin/linux-x86-64/sonar.sh start
+      exit
+
+    SHELL2
+  end
 end
