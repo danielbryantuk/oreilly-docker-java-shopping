@@ -24,11 +24,6 @@
   "provisioners": [
     {
       "type": "file",
-      "source": "supervisord.conf",
-      "destination": "/tmp/supervisord.conf"
-    },
-    {
-      "type": "file",
       "source": "../shopfront/target/shopfront-0.0.1-SNAPSHOT.jar",
       "destination": "/tmp/app.jar"
     },
@@ -40,8 +35,9 @@
         "sudo apt-get upgrade -y",
         "sudo apt-get install -y openjdk-8-jre-headless",
         "sudo apt-get install -y supervisor",
-        "sudo mv /tmp/supervisord.conf /opt",
-        "sudo mv /tmp/app.jar /opt"
+        "sudo mv /tmp/app.jar /opt",
+        "printf '\n[program:java-app]\ncommand= java -jar /opt/app.jar' | sudo tee --append /etc/supervisor/supervisord.conf > /dev/null",
+        "sudo service supervisor restart"
       ]
     }]
 }
