@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: stockmanager
+  labels:
+    app: stockmanager
+spec:
+  type: ClusterIP
+  selector:
+    app: stockmanager
+  ports:
+  - protocol: TCP
+    port: 8030
+    name: http
+
+---
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: stockmanager
+  labels:
+    app: stockmanager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: stockmanager
+  template:
+    metadata:
+      labels:
+        app: stockmanager
+    spec:
+      containers:
+      - name: stockmanager
+        image: danielbryantuk/djstockmanager:1.0
+        ports:
+        - containerPort: 8030
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8030
+          initialDelaySeconds: 30
+          timeoutSeconds: 1
