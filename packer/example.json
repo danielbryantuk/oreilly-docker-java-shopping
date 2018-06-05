@@ -1,7 +1,9 @@
 {
   "variables": {
     "aws_access_key": "",
-    "aws_secret_key": ""
+    "aws_secret_key": "",
+    "app_name": "",
+    "jar_file_location": ""
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -19,12 +21,12 @@
     },
     "instance_type": "t2.micro",
     "ssh_username": "ubuntu",
-    "ami_name": "ubuntu-openjdk-8-jre-{{timestamp}}"
+    "ami_name": "{{user `app_name`}}"
   }],
   "provisioners": [
     {
       "type": "file",
-      "source": "../shopfront/target/shopfront-0.0.1-SNAPSHOT.jar",
+      "source": "{{user `jar_file_location`}}",
       "destination": "/tmp/app.jar"
     },
     {
