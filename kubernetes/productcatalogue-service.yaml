@@ -34,6 +34,6 @@ spec:
         livenessProbe:
           httpGet:
             path: /healthcheck
-            port: 8025
+            port: 8020
           initialDelaySeconds: 30
           timeoutSeconds: 1
