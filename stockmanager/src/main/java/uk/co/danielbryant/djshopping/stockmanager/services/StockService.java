@@ -27,7 +27,7 @@ public class StockService {
     }
 
     public Stock getStock(String productId) throws StockNotFoundException {
-        return Optional.ofNullable(stockRepository.findOne(productId))
+        return stockRepository.findById(productId)
                 .orElseThrow(() -> new StockNotFoundException("Stock not found with productId: " + productId));
     }
 }
