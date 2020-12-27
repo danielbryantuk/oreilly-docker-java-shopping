@@ -22,3 +22,8 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -B package --file shopfront/pom.xml
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v2.2.1
+      with:
+        # List of tags
+        tags: danielbryantuk/djshopfront
