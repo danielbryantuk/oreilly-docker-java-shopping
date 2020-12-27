@@ -6,7 +6,7 @@ name: productcatalogue - Java CI with Maven, and Docker Build and Push
 on:
   push:
     branches: [ master ]
-
+    paths: ./productcatalogue/**
 
 
 jobs:
