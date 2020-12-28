@@ -15,11 +15,15 @@ spec:
     name: http
 
 ---
-apiVersion: v1
-kind: ReplicationController
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: stockmanager
 spec:
+  spec:
+  selector:
+    matchLabels:
+      app: stockmanager
   replicas: 1
   template:
     metadata:
@@ -28,7 +32,7 @@ spec:
     spec:
       containers:
       - name: stockmanager
-        image: danielbryantuk/djstockmanager:1.0
+        image: danielbryantuk/djstockmanager:latest
         ports:
         - containerPort: 8030
         livenessProbe:
