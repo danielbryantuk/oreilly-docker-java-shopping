@@ -4,12 +4,12 @@ kind: Service
 metadata:
   name: ratelimiter
   annotations:
-    getambassador.io/config: |
+    getambassador.io/config:
       ---
-      apiVersion: ambassador/v0
-      kind: RateLimitService
-      name: ratelimiter_svc
-      service: "ratelimiter:50051"
+apiVersion: ambassador/v0
+kind: RateLimitService
+name: ratelimiter_svc
+service: "ratelimiter:50051"
   labels:
     app: ratelimiter
 spec:
